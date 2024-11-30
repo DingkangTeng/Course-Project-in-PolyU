@@ -1,8 +1,8 @@
 This course project is about Data-Driven Approaches to Parking Management in New York City
 
-*FinalReport.py*: Change fiscal years to natural years and do some statistical analysis.
-*RF.py*: Class used for Random Forest analysis.
-*streepShp.py*: Match street name in shapefile with SND.
+**FinalReport.py**: Change fiscal years to natural years and do some statistical analysis.
+**RF.py**: Class used for Random Forest analysis.
+**streepShp.py**: Match street name in shapefile with SND.
 
 >#### Data source
 >1.	Parking Violations Issued - Fiscal Year 2024, source: https://bit.ly/4dtVQtb
