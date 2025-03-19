@@ -78,39 +78,39 @@ class changModel:
             return "walk"
 
 if __name__ == "__main__":
-    # # Modify the network
-    # a = modify("network.xml")
-    # links = a.findall("links")
-    # for node in links:
-    #     links = node.findall("link")
-    #     linkNum = len(node)
-    #     for link in links:
-    #         linkNum += 1
-    #         # Get the original link
-    #         attribDict = link.attrib.copy()
-    #         # Swap the start and end points
-    #         swapAttrib(attribDict, "from", "to")
-    #         attribDict["id"] = str(linkNum) # Ensure id is a string
-    #         attribDict["origid"] = attribDict["from"]
-    #         # Add new link
-    #         node.append(a.creatNode("link", attribDict))
+    # Modify the network
+    a = modify("network_onlytwoway.xml") #network_onlytwoway.xml
+    links = a.findall("links")
+    for node in links:
+        links = node.findall("link")
+        linkNum = len(node)
+        for link in links:
+            linkNum += 1
+            # Get the original link
+            attribDict = link.attrib.copy()
+            # Swap the start and end points
+            swapAttrib(attribDict, "from", "to")
+            attribDict["id"] = str(linkNum) # Ensure id is a string
+            attribDict["origid"] = attribDict["from"]
+            # Add new link
+            node.append(a.creatNode("link", attribDict))
         
-    #     # Add diagnostic
-    #     diagnostic = [str(10 + x * 9) for x in range(10)] # Ensure value is a string
-    #     for i in range(9):
-    #         linkNum += 1
-    #         attribDict["id"] = str(linkNum) # Ensure id is a string
-    #         attribDict["from"] = diagnostic[i]
-    #         attribDict["origid"] = diagnostic[i]
-    #         attribDict["to"] = diagnostic[i+1]
-    #         attribDict["length"] = "1414.21"
-    #         node.append(a.creatNode("link", attribDict))
-    #         # Swap
-    #         linkNum += 1
-    #         attribDict["id"] = str(linkNum) # Ensure id is a string
-    #         swapAttrib(attribDict, "from", "to", "origid")
-    #         node.append(a.creatNode("link", attribDict))
-    # a.write()
+        # # Add diagnostic
+        # diagnostic = [str(10 + x * 9) for x in range(10)] # Ensure value is a string
+        # for i in range(9):
+        #     linkNum += 1
+        #     attribDict["id"] = str(linkNum) # Ensure id is a string
+        #     attribDict["from"] = diagnostic[i]
+        #     attribDict["origid"] = diagnostic[i]
+        #     attribDict["to"] = diagnostic[i+1]
+        #     attribDict["length"] = "1414.21"
+        #     node.append(a.creatNode("link", attribDict))
+        #     # Swap
+        #     linkNum += 1
+        #     attribDict["id"] = str(linkNum) # Ensure id is a string
+        #     swapAttrib(attribDict, "from", "to", "origid")
+        #     node.append(a.creatNode("link", attribDict))
+    a.write()
 
     # # Modify the plans
     # b = modify("plans.xml")
@@ -131,15 +131,15 @@ if __name__ == "__main__":
     #                     attrib.text = model
     # b.write()
 
-    # Double
-    c = modify("plans_double.xml")
-    people = c.findall("person")
-    peopleNum = len(people)
-    for person in people:
-        # Duplicates how 1 time
-        for i in range(1):
-            peopleNum += 1
-            newPerson = copy.deepcopy(person)
-            newPerson.set("id", str(peopleNum)) # Ensure id is a string
-            c.rootAppend(newPerson)
-    c.write()
+    # # Double
+    # c = modify("plans_double.xml")
+    # people = c.findall("person")
+    # peopleNum = len(people)
+    # for person in people:
+    #     # Duplicates how 1 time
+    #     for i in range(1):
+    #         peopleNum += 1
+    #         newPerson = copy.deepcopy(person)
+    #         newPerson.set("id", str(peopleNum)) # Ensure id is a string
+    #         c.rootAppend(newPerson)
+    # c.write()
