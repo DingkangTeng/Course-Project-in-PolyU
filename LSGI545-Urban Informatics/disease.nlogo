@@ -53,6 +53,7 @@ to start
   checkInfection
   decreaseInfection
   checkDeath
+  updatePatienNum
   tick
 end
 
@@ -149,7 +150,7 @@ to creatHospital
     set color white
     set pcolor red
     set infection 0
-    set doctor int(numPeople * doctorPatientRatio / numHospital) ;; Based on the doctor-patient ratio
+    set doctor numPeople * doctorPatientRatio / numHospital ;; Based on the doctor-patient ratio
     set closed False
     set patient 0
   ]
@@ -238,9 +239,8 @@ to moveTurtles
     ;; Interactiaon with place
     if pcolor = red and sick > 0
     [
-      set patient count people with [ sick > 0 and pcolor = red ]
       setInfection
-      ifelse random 100 < ((doctor / patient) * 100)
+      ifelse random 100 < ((doctor / (patient + 0.0001)) * 100)
       [
         set sick 0
         set immunity 1 + random 99
@@ -258,8 +258,14 @@ to checkInfection
   [
     if sick > 0
     [
-      set health health - (1 * ( 1 + sick / 100)) ;; Health will lose quickly if infection is high
-      set sick sick + 1 ;; Infection will increase if no treatment
+      ifelse pcolor = red
+      [
+        set health health - 0.01 ;; Health will lose slowly in hospital
+      ]
+      [
+        set health health - (1 * ( 1 + sick / 100)) ;; Health will lose quickly if infection is high
+        set sick sick + 1 ;; Infection will increase if no treatment
+      ]
       set color red
       ifelse age = 2 or age = 3 [ set ratio 1 ] [ set ratio 0.5 ]
       set finalRecove recoverChance * ratio
@@ -320,6 +326,13 @@ to closeHighRiskPlace
   [
     if infection > 50 and (pcolor = green or pcolor = yellow) [ set closed True ] ;; Hospital will not close
     if infection = 0 [ set closed False ]
+  ]
+end
+
+to updatePatienNum
+  ask hospitals
+  [
+    set patient count ( people-on self ) with [ pcolor = red ]
   ]
 end
 ;; Hospitals, restrooms and restaurants have different infection rates
