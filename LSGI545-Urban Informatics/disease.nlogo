@@ -322,9 +322,10 @@ to closeHighRiskPlace
     if infection = 0 [ set closed False ]
   ]
 end
-;; 医院、厕所、餐馆有不同的感染率；感染率随患者增加而增加，随时间增加减少
-;; 医院医生也有一定概率感染，但会自动恢复；病人越多医生越容易感染，医生人数下降会影响治愈速度
-;; 感染的人会逐渐死亡
+;; Hospitals, restrooms and restaurants have different infection rates
+;; The infection rate increased with the increase of patients and decreased with the increase of time
+;; The decline in the doctors/patients ratio will affect the cure speed
+;; Infected people will gradually die
 @#$#@#$#@
 GRAPHICS-WINDOW
 347
