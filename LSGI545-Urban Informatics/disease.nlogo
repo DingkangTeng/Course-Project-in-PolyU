@@ -62,7 +62,7 @@ end
 to initTurtles
   createPeople
   creatHospital
-  creatRestroom
+  creatToilet
   creatRestaurant
 end
 
@@ -81,7 +81,7 @@ to createPeople
     set remainTicks 0
   ]
   ;; Determine immunated people randomly
-  ask n-of int(numPeople * immunationRatio) people
+  ask n-of int(numPeople * immurationRatio) people
   [
     set immunity 100
     set color green
@@ -90,9 +90,9 @@ to createPeople
   let i 0
   while [i < numPeople * infectedRatio]
   [
-    if immunationRatio + infectedRatio > 1
+    if immurationRatio + infectedRatio > 1
     [
-      set infectedRatio 1 - immunationRatio
+      set infectedRatio 1 - immurationRatio
     ]
     ask person random numPeople
     [
@@ -156,9 +156,9 @@ to creatHospital
   ]
 end
 
-to creatRestroom
+to creatToilet
   let i 0
-  while [i < numRestroom]
+  while [i < numToilet]
   [
     ask patch random-pxcor random-pycor
     [
@@ -226,8 +226,8 @@ to moveTurtles
       ]
       ;; Stop in specific place
       if pcolor = red and sick > 0 and closed = False[ set stopped True set remainTicks 6 ] ;; If sick, stop 60 min
-      if pcolor = yellow and closed = False [ set stopped True set remainTicks 1 ] ;; Stop 10 min for restroom
-      if pcolor = green and closed = False [ set stopped True set remainTicks 3 ] ;; Stop 30 min for restroom
+      if pcolor = yellow and closed = False [ set stopped True set remainTicks 1 ] ;; Stop 10 min for Toilet
+      if pcolor = green and closed = False [ set stopped True set remainTicks 3 ] ;; Stop 30 min for Toilet
      ]
     ;; change immunity
     if immunity > 0
@@ -286,7 +286,7 @@ to checkInfection
       if age = 2 [ set addin 0 ]
       if age = 3 [ set addin 0 ]
       if age = 4 [ set addin 20 ]
-      if random 100 < basein + (1 + addin) / 100 [ getSick ] ;; Infect chance, based on age and place
+      if random 100 < basein + addin [ getSick ] ;; Infect chance, based on age and place
     ]
   ]
 end
@@ -335,7 +335,7 @@ to updatePatienNum
     set patient count ( people-on self ) with [ pcolor = red ]
   ]
 end
-;; Hospitals, restrooms and restaurants have different infection rates
+;; Hospitals, Toilets and restaurants have different infection rates
 ;; The infection rate increased with the increase of patients and decreased with the increase of time
 ;; The decline in the doctors/patients ratio will affect the cure speed
 ;; Infected people will gradually die
@@ -407,11 +407,11 @@ SLIDER
 10
 330
 43
-numRestroom
-numRestroom
+numToilet
+numToilet
 0
 100
-20.0
+10.0
 1
 1
 NIL
@@ -426,7 +426,7 @@ numRestaurant
 numRestaurant
 0
 100
-10.0
+5.0
 1
 1
 NIL
@@ -453,7 +453,7 @@ INPUTBOX
 100
 140
 doctorPatientRatio
-0.03
+0.1
 1
 0
 Number
@@ -463,7 +463,7 @@ INPUTBOX
 80
 215
 140
-immunationRatio
+immurationRatio
 0.0
 1
 0
@@ -582,7 +582,7 @@ SWITCH
 295
 showHealth
 showHealth
-0
+1
 1
 -1000
 
@@ -703,7 +703,7 @@ true
 PENS
 "population" 1.0 0 -16777216 true "" "plot count people"
 "infection" 1.0 0 -2674135 true "" "plot count people with [sick > 0]"
-"immunitied" 1.0 0 -13840069 true "" "plot count people with [immunity > 0]"
+"immunity" 1.0 0 -13840069 true "" "plot count people with [immunity > 0]"
 "infect case" 1.0 0 -1184463 true "" "plot infectCases"
 
 TEXTBOX
