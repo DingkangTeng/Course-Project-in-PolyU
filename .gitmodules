@@ -1,0 +1,3 @@
+[submodule "LandslideAnalysis"]
+	path = LandslideAnalysis
+	url = https://github.com/DingkangTeng/LandslideAnalysis
