@@ -1,0 +1,11 @@
+__pycache__
+.backups
+GpMessages
+ImportLog
+Index
+*.gdb
+Raster
+*.code-workspace
+*.aprx
+*.atbx
+RFModel2018_2023
